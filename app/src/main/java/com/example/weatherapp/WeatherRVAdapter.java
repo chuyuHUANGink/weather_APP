@@ -43,8 +43,10 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         holder.windTV.setText(modal.getWindpseed()+"Km/h");
         holder.humTV.setText("humidity:"+modal.getHum());
 
+        ;
+
         if (modal.getCon()==0){
-        holder.itemView.setBackgroundColor(Color.GREEN);}else{
+        holder.itemView.setBackgroundColor(Color.GREEN); }else{
             holder.itemView.setBackgroundColor(Color.RED);
         }
 

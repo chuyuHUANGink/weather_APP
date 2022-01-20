@@ -14,9 +14,19 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_back"
 
+        android:padding="2dp"
+
 
 
         >
+
+
+
+
+
+
+
+
 
         <TextView
             android:layout_width="match_parent"

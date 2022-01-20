@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
     private int PERMISSION_CODE=1;
     private String cityName;
     private RequestQueue requestQueue;
+    private ImageButton filterIB,reIB;
+
+    private JSONObject forecastobj;
+    private JSONObject forecastDay;
+
+
+
 
 
 
@@ -65,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.activity_main);
+        reIB=findViewById(R.id.idIBRe);
+        filterIB=findViewById(R.id.idIBFilter);
         humTV=findViewById(R.id.idTVHum);
         homeRL=findViewById(R.id.idRLHome);
         loadingPB=findViewById(R.id.idPBLoading);
@@ -88,12 +98,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Location location=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        //Picasso.get().load("https://img1.baidu.com/it/u=3587364379,3049284261&fm=253&fmt=auto&app=138&f=JPEG?w=499&h=299").into(backIV);
 
 
 
         cityName=getCityName(location.getLongitude(),location.getLatitude());
         getWeatherInfo(cityName);
 
+
+        reIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                weatherRV.setAdapter(weatherRVAdapter);
+
+            }
+        });
+
+
+        filterIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<WeatherRVModal> temp_list;
+                temp_list=new ArrayList<>();
+
+
+                //weatherRVModalArrayList.clear();
+                //weatherRVAdapter.notifyDataSetChanged();
+                for (WeatherRVModal modal:weatherRVModalArrayList){
+                    if (modal.getCon()==0){
+                        temp_list.add(modal);
+                    };
+
+                }
+                WeatherRVAdapter temp_adapter=new WeatherRVAdapter(MainActivity.this,temp_list);
+                weatherRV.setAdapter(temp_adapter);
+                //weatherRVModalArrayList.clear();
+                //weatherRVModalArrayList.addAll(temp_list);
+                //weatherRVAdapter.notifyDataSetChanged();
+
+            }
+        });
 
 
 
@@ -177,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                 try {
 
                     String cityNameGet=response.getJSONObject("location").getString("name");
@@ -191,14 +235,13 @@ public class MainActivity extends AppCompatActivity {
                         conditionTV.setText(condition);
                         cityNameTV.setText(cityNameGet);
 
-                        if (isDay == 1) {
-                            Picasso.get().load("https://img1.baidu.com/it/u=3587364379,3049284261&fm=253&fmt=auto&app=138&f=JPEG?w=499&h=299").into(backIV);
-                        } else {
-                            Picasso.get().load("https://img1.baidu.com/it/u=3587364379,3049284261&fm=253&fmt=auto&app=138&f=JPEG?w=499&h=299").into(backIV);
-                        }
 
-                        JSONObject forecastobj = response.getJSONObject("forecast");
-                        JSONObject forecastDay = forecastobj.getJSONArray("forecastday").getJSONObject(0);
+
+                        forecastobj = response.getJSONObject("forecast");
+
+
+
+                        forecastDay = forecastobj.getJSONArray("forecastday").getJSONObject(0);
                         JSONArray hourArray = forecastDay.getJSONArray("hour");
                         String forecast_date=forecastDay.getString("date");
                         rvTV.setText("Forecast for:"+forecast_date+"/in:"+cityNameGet);
