@@ -2,6 +2,7 @@ package com.example.weatherapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,17 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         WeatherRVModal modal=weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature()+"°C");
         holder.windTV.setText(modal.getWindpseed()+"Km/h");
+        holder.humTV.setText("humidity:"+modal.getHum());
+
+        if (modal.getCon()==0){
+        holder.itemView.setBackgroundColor(Color.GREEN);}else{
+            holder.itemView.setBackgroundColor(Color.RED);
+        }
+
+
+
+
+
         Picasso.get().load("http:".concat(modal.getIcon())).into(holder.conditioniv);
         SimpleDateFormat input=new SimpleDateFormat("yyyy-MM-dd hh:mm");
         SimpleDateFormat output=new SimpleDateFormat("hh:mm aa");
@@ -58,7 +70,7 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView windTV,temperatureTV,timeTV;
+        private TextView windTV,temperatureTV,timeTV,humTV;
         private ImageView conditioniv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,6 +79,8 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
             temperatureTV =itemView.findViewById(R.id.idTVTemperature);
             timeTV =itemView.findViewById(R.id.idTVTime);
             conditioniv =itemView.findViewById(R.id.idIVCondition);
+            humTV=itemView.findViewById(R.id.idTVHum);
+
 
         }
     }
