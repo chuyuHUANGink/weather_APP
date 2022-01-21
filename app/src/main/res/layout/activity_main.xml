@@ -7,13 +7,7 @@
     android:background="@color/black_shade_1"
     tools:context=".MainActivity">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/idPBLoading"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+
 
 
     <RelativeLayout
@@ -25,13 +19,13 @@
 
         >
 
+
         <ImageView
             android:id="@+id/idIVBack"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/gu_2" />
-
 
         <TextView
             android:id="@+id/idTVCityName"
@@ -43,7 +37,7 @@
             android:text="City Name"
             android:textAlignment="center"
             android:textColor="@color/black_shade_1"
-            android:textSize="18sp" />
+            android:textSize="25sp" />
 
         <LinearLayout
             android:id="@+id/idLLEdt"
@@ -74,7 +68,7 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +81,7 @@
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_search"
-                app:tint="@color/white" />
+                app:tint="@color/black" />
 
 
 
@@ -106,29 +100,33 @@
             android:padding="5dp"
             android:text="23"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:textSize="70dp" />
 
         <ImageView
+            android:id="@+id/idIVIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/idIVIcon"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/idTVTemperature"
-            android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            android:src="@mipmap/ic_launcher" />
 
 
         <TextView
+            android:id="@+id/idTVcondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idTVcondition"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:text="condition"
-            android:textColor="@color/white"
             android:layout_below="@id/idIVIcon"
-            />
+            android:gravity="center"
+            android:text="condition"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:textColor="@color/white" />
 
 
         <TextView
@@ -151,29 +149,58 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
+
+
+
+        <Switch
+            android:id="@+id/idSWFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/idTVRv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="-4dp"
+            android:background="@drawable/card_back"
+            android:text="Filter"
+            android:textColor="@color/white"
+            android:textOff="Filter off"
+            android:textOn="Filter on"
+            android:button="@android:drawable/ic_menu_mylocation"/>
+
+        <ImageButton
+            android:id="@+id/idIBNext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="312dp"
+            android:background="@drawable/card_back"
+            app:srcCompat="@android:drawable/ic_media_ff" />
+
+        <ImageButton
+            android:id="@+id/idIbBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="312dp"
+            android:background="@drawable/card_back"
+            android:visibility="visible"
+            app:srcCompat="@android:drawable/ic_media_rew" />
+
         <ImageButton
             android:id="@+id/idIBRe"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignBottom="@+id/idTVRv"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="-9dp"
+            android:layout_above="@+id/idIbBack"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="-119dp"
+            android:background="@drawable/card_back"
+            android:visibility="gone"
             app:srcCompat="@android:drawable/ic_menu_revert" />
-
-
-        <ImageButton
-            android:id="@+id/idIBFilter"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignTop="@+id/idIBRe"
-            android:layout_alignBottom="@+id/idTVRv"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="45dp"
-            android:layout_marginRight="-5dp"
-            android:layout_marginBottom="-9dp"
-            android:layout_toLeftOf="@id/idIBRe"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
 
     </RelativeLayout>

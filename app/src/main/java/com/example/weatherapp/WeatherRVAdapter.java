@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,15 +41,22 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
     public void onBindViewHolder(@NonNull WeatherRVAdapter.ViewHolder holder, int position) {
         WeatherRVModal modal=weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature()+"°C");
-        holder.windTV.setText(modal.getWindpseed()+"Km/h");
+        holder.windTV.setText(modal.getWindpseed()+"mile/h");
         holder.humTV.setText("humidity:"+modal.getHum());
 
-        ;
+
+
 
         if (modal.getCon()==0){
-        holder.itemView.setBackgroundColor(Color.GREEN); }else{
+        holder.itemView.setBackgroundColor(Color.YELLOW); }
+        if (modal.getCon()==1){
             holder.itemView.setBackgroundColor(Color.RED);
         }
+        if (modal.getCon()==2){
+            holder.itemView.setBackgroundColor(Color.GREEN);
+        }
+
+
 
 
 
@@ -70,6 +78,8 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
     public int getItemCount() {
         return weatherRVModalArrayList.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView windTV,temperatureTV,timeTV,humTV;
