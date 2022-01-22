@@ -199,8 +199,46 @@
             android:layout_marginStart="25dp"
             android:layout_marginBottom="-119dp"
             android:background="@drawable/card_back"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:srcCompat="@android:drawable/ic_menu_revert" />
+
+        <ImageButton
+            android:id="@+id/idIBAlarm"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@id/idIBNext"
+
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="-120dp"
+            android:background="@drawable/card_back"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <TextView
+            android:id="@+id/idTVAlarm"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/idLLEdt"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="100dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:background="@drawable/clock"
+            android:textStyle="italic"
+
+
+            android:text=""
+            android:textSize="20sp"
+            android:visibility="invisible"
+            />
+
+
 
 
     </RelativeLayout>

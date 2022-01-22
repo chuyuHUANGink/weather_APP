@@ -6,21 +6,28 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,22 +40,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private RelativeLayout homeRL;
 
-    private TextView cityNameTV,temperatureTV,conditionTV,humTV,rvTV;
+    private TextView cityNameTV,rvTV,alarmTV;
     private TextInputEditText cityEdt;
     private RecyclerView weatherRV;
     private ImageView backIV,iconIV,searchIV;
@@ -59,11 +70,23 @@ public class MainActivity extends AppCompatActivity {
     private String cityName;
     private RequestQueue requestQueue;
     private Switch filterSW;
-    private ImageButton IBnext,IBback,IBre;
+    private ImageButton IBnext,IBback,IBre,IBAlarm;
     JSONObject responseGet;
+    SimpleDateFormat input=new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     private JSONObject forecastobj;
     private JSONObject forecastDay;
+
+    private Calendar calendar,calendar_temp;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    public String clock_time="";
+
+
+
+
+
+
 
 
 
@@ -74,12 +97,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        calendar= Calendar.getInstance();
+        createNotificationChannel();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.activity_main);
 
-        humTV=findViewById(R.id.idTVHum);
         homeRL=findViewById(R.id.idRLHome);
         cityNameTV=findViewById(R.id.idTVCityName);
         weatherRV=findViewById(R.id.idRvWeather);
@@ -88,13 +112,16 @@ public class MainActivity extends AppCompatActivity {
         searchIV=findViewById(R.id.idIVSearch);
         rvTV=findViewById(R.id.idTVRv);
         weatherRVModalArrayList=new ArrayList<>();
-        weatherRVAdapter=new WeatherRVAdapter(this,weatherRVModalArrayList);
+        weatherRVAdapter=new WeatherRVAdapter(handler,this,weatherRVModalArrayList);
         weatherRV.setAdapter(weatherRVAdapter);
         requestQueue = Volley.newRequestQueue(MainActivity.this);
         filterSW=findViewById(R.id.idSWFilter);
         IBnext=findViewById(R.id.idIBNext);
         IBback=findViewById(R.id.idIbBack);
         IBre=findViewById(R.id.idIBRe);
+        IBAlarm=findViewById(R.id.idIBAlarm);
+        alarmTV=findViewById(R.id.idTVAlarm);
+
 
         locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED ){
@@ -114,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         if (modal.getCon()!=1){
                             temp_list.add(modal);
                         };}
-                    WeatherRVAdapter temp_adapter=new WeatherRVAdapter(MainActivity.this,temp_list);
+                    WeatherRVAdapter temp_adapter=new WeatherRVAdapter(handler,MainActivity.this,temp_list);
                     weatherRV.setAdapter(temp_adapter);
                     if (temp_list.size()==0){
                         Toast.makeText(MainActivity.this,"No appropiate time find from:"+rvTV.getText(),Toast.LENGTH_SHORT).show();
@@ -173,6 +200,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    IBAlarm.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            cancelAlarm();
+        }
+    });
+
+
+
+
 
 
     searchIV.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +227,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void cancelAlarm() {
+        Intent intent =  new Intent(this,AlarmReciver.class);
+
+        pendingIntent=PendingIntent.getBroadcast(this,0,intent,0);
+
+        if (alarmManager==null){
+             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        }
+        alarmManager.cancel(pendingIntent);
+        Toast.makeText(MainActivity.this,"alarm canceled",Toast.LENGTH_SHORT).show();
+        IBAlarm.setVisibility(View.INVISIBLE);
+        alarmTV.setText("");
+        alarmTV.setVisibility(View.INVISIBLE);
+
+
+
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            CharSequence name="foxandriodRemindarChannel";
+            String description ="Channel for Alarm Manager";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel=new NotificationChannel("foxandroid",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager=getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -229,8 +299,6 @@ public class MainActivity extends AppCompatActivity {
         return cityName;
     }
 
-
-
     public void FillweatherInfo(int day_index){
         try{
         weatherRVModalArrayList.clear();
@@ -240,6 +308,17 @@ public class MainActivity extends AppCompatActivity {
         String forecast_date=forecastDay.getString("date");
         cityNameTV.setText(cityNameGet);
         rvTV.setText("Forecast for:"+forecast_date+"/in:"+cityNameGet);
+
+
+ //            try{
+//
+//                if (t.compareTo(calendar.getTime())>0){
+//                } else {
+//                    Toast.makeText(this,"sry, chosen time already passed, pick another time", Toast.LENGTH_LONG).show();
+//                    return;}
+//            }catch(){
+//                e.printStackTrace();
+//            }
 
 
 
@@ -255,7 +334,9 @@ public class MainActivity extends AppCompatActivity {
             int wind_value=hourobj.getInt("wind_kph");
             int hum_value=hourobj.getInt("humidity");
 
-            if (day==1) {
+
+
+            if (day==1){
                 int con=hourobj.getJSONObject("condition").getInt("code");
                 if ((con==1000||con==1003||con==1006)&&(wind_value<12)&&(hum_value<70)&&(wind_value>8)){
                     weatherRVModalArrayList.add(new WeatherRVModal(time, temper, img, wind, hum,0));
@@ -295,6 +376,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
                 try {
                         forecastobj = responseGet.getJSONObject("forecast");
                         FillweatherInfo(0);
@@ -323,4 +405,92 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void setAlarm() {
+        alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent =  new Intent(this,AlarmReciver.class);
+
+        pendingIntent=PendingIntent.getBroadcast(this,0,intent,0);
+
+        Calendar calendar_temp = Calendar.getInstance();
+
+        if (clock_time!="") {
+            String[] s1=clock_time.split("-");
+            int year=Integer.parseInt(s1[0]);
+            int month=Integer.parseInt(s1[1])-1;
+            String[] s2=s1[2].split(" ");
+            int day=Integer.parseInt(s2[0]);
+            String[] s3=s2[1].split(":");
+            int hour=Integer.parseInt(s3[0]);
+
+            try{
+                Date t=input.parse(clock_time);
+                if (t.compareTo(calendar.getTime())>0){
+                } else {
+                    Toast.makeText(this,"sry, chosen time already passed, pick another time", Toast.LENGTH_LONG).show();
+                    return;}
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+
+
+
+
+
+
+
+            calendar_temp.set(calendar_temp.YEAR, year);
+            calendar_temp.set(calendar_temp.MONTH, month);
+            calendar_temp.set(calendar_temp.DAY_OF_MONTH, day);
+            calendar_temp.set(calendar_temp.HOUR_OF_DAY, hour);
+            calendar_temp.set(calendar_temp.MINUTE, 0);
+            calendar_temp.set(calendar_temp.SECOND, 0);
+            calendar_temp.set(calendar_temp.MILLISECOND, 0);
+            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //calendar.getTime().toString()
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar_temp.getTimeInMillis(), pendingIntent);
+            } else {
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar_temp.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            }
+            Toast.makeText(this,"Alarm set on"+calendar_temp.getTime().toString(), Toast.LENGTH_LONG).show();
+            IBAlarm.setVisibility(View.VISIBLE);
+
+        }
+
+        else{
+            Toast.makeText(this,"alarm setting failed".toString(),Toast.LENGTH_LONG).show();
+        }
+        alarmTV.setText("Current alarm:"+calendar_temp.getTime().toString());
+        alarmTV.setVisibility(View.VISIBLE);
+    clock_time="";
+    }
+
+
+
+
+
+
+
+
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    clock_time=msg.getData().getString("NotificationTime");
+                    setAlarm();
+                default:
+                    break;
+
+
+            }
+        }
+    };
+
+
+
 }
