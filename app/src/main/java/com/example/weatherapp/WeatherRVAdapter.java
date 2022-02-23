@@ -60,6 +60,8 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         holder.windTV.setText(modal.getWindpseed()+"mile/h");
         holder.humTV.setText("humidity:"+modal.getHum());
 
+
+        //send tiem information to main activity with choosen card for alarm use.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +79,7 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
 
 
 
-
+        //change the color of the card show the weather condition rank base on algorithm from main activity.
         if (modal.getCon()==0){
         holder.itemView.setBackgroundColor(Color.YELLOW);}
         if (modal.getCon()==1){

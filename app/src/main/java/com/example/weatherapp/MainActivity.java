@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity  {
         IBAlarm=findViewById(R.id.idIBAlarm);
         alarmTV=findViewById(R.id.idTVAlarm);
 
-
+        //check the premission required
         locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED ){
            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity  {
         cityName=getCityName(location.getLongitude(),location.getLatitude());
         getWeatherInfo(cityName);
 
+
+        //hide the card with bad weather condition, left the good and perfects.
         filterSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity  {
         }
         );
 
+    //move to the information page of next day
     IBnext.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -172,6 +175,7 @@ public class MainActivity extends AppCompatActivity  {
             }
     }});
 
+    //move to the information page of yesterday
     IBback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,6 +194,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
+    //return to the information page of today's
     IBre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,6 +205,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
+    //cancel alarm
     IBAlarm.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -211,7 +217,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-
+    //find the weather information for certain city, if no entry, then search for default current city.
     searchIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +227,6 @@ public class MainActivity extends AppCompatActivity  {
                     cityName=getCityName(location.getLongitude(),location.getLatitude());
                     getWeatherInfo(cityName);
                 }else{
-                    //cityNameTV.setText(cityName);
                     getWeatherInfo(city);
                 }
             }
@@ -299,6 +304,7 @@ public class MainActivity extends AppCompatActivity  {
         return cityName;
     }
 
+
     public void FillweatherInfo(int day_index){
         try{
         weatherRVModalArrayList.clear();
@@ -310,15 +316,6 @@ public class MainActivity extends AppCompatActivity  {
         rvTV.setText("Forecast for:"+forecast_date+"/in:"+cityNameGet);
 
 
- //            try{
-//
-//                if (t.compareTo(calendar.getTime())>0){
-//                } else {
-//                    Toast.makeText(this,"sry, chosen time already passed, pick another time", Toast.LENGTH_LONG).show();
-//                    return;}
-//            }catch(){
-//                e.printStackTrace();
-//            }
 
 
 
@@ -424,11 +421,12 @@ public class MainActivity extends AppCompatActivity  {
             String[] s3=s2[1].split(":");
             int hour=Integer.parseInt(s3[0]);
 
-            try{
-                Date t=input.parse(clock_time);
+
+            // a simple condition checking to avoid a alrm on passed time made.
+            try{ Date t=input.parse(clock_time);
                 if (t.compareTo(calendar.getTime())>0){
                 } else {
-                    Toast.makeText(this,"sry, chosen time already passed, pick another time", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"sry, chosen time point already passed, pick another time", Toast.LENGTH_LONG).show();
                     return;}
             }catch(ParseException e){
                 e.printStackTrace();
@@ -447,9 +445,7 @@ public class MainActivity extends AppCompatActivity  {
             calendar_temp.set(calendar_temp.MINUTE, 0);
             calendar_temp.set(calendar_temp.SECOND, 0);
             calendar_temp.set(calendar_temp.MILLISECOND, 0);
-            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //calendar.getTime().toString()
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar_temp.getTimeInMillis(), pendingIntent);
             } else {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar_temp.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -475,7 +471,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-
+    //used to receive information from card and alarm making.
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
