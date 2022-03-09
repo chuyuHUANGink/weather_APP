@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity  {
         IBAlarm=findViewById(R.id.idIBAlarm);
         alarmTV=findViewById(R.id.idTVAlarm);
 
-        //check the premission required
+        //check the premission required automatically, and search for current city.
         locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED ){
            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
