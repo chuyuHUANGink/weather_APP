@@ -1,0 +1,121 @@
+2021/9/20
+2 hours>checking the relevent information available from moodle page
+0.5 hour>checking the status report/timelog template.
+
+2021/9/21
+3 hours>checking the list of available proposals
+1 hours>searching information for interested proposals.
+
+2021/9/22
+1 hour> making bidding.
+
+2021/9/23
+1 hour> making bidding, change the final list.
+
+2021/9/25
+0.5hour>checking the time line/ milestones on moodle pages.
+
+2021/9/30
+0.5 hour> getting contact with supervisors, decide Friday 2:30pm for furture supervisor meeting.
+
+2021/10/1
+0.5 hour>meeting with supervisor.
+2 hour>background researching.
+
+2021/10/3
+1 hour>background researching.
+
+2021/10/5
+0.5 hour>background researching.
+
+2021/10/8
+0.5 hour>meeting with supervisor.
+0.5 hour>background researching.
+
+2021/10/9
+0.5 hour>start working on status reports.
+0.5 hour>background resaeching.
+
+
+2021/10/14
+1 hour>background researching.
+0.5 hour>checking report requirment/deadline with supervisor.
+
+2021/10/20
+2hour>working on ER diagarm
+0.5 hour>perpare for the figma prototype creating.
+
+2021/10/29
+0.5 hour>getting contact with supervioser from Email. explain the missing meeting for last2 weeks.
+
+2021/10/31
+0.5 hour> background researching.
+
+
+2021/11/5
+0.5 hour> meeting with supervisor
+
+2021/11/10
+1 hour> working on user story
+
+2021/11/11
+0.5 hour> working on ER diagram
+0.5 hour>working on function defination
+
+2021/11/12
+0.5 hour>meeting with supervisor
+
+2021/11/13
+1 hour>working on function define
+0.5 hour>finish the user story
+
+2021/11/15
+3 hour>working on figma prototype
+
+2021/11/16
+1 hour>working on figma prototype
+
+2021/11/19
+0.5 hour> meeting with supervioser.
+0.5 hour>background researching
+
+2021/11/18
+2 hour>new function on figma prototype
+0.5 hour> add a new user story
+0.5 hour>working on status report.
+
+2021/11/26
+0.5 hour>meeting with supervioser
+ 
+
+2021/12/3
+0.5 hour>meeting with supervioser
+1 hour>working on the the language choosing
+
+2021/12/10
+0.5 hour>meeting with supervioser.
+2 hour>working on the background researching about the language
+
+2021/12/11
+1 hour>dowining the Android studio and setting environment for it.
+
+2021/12/12
+3 hour>imporve the developing envirnoment setting on android studio.
+
+2021/12/13
+2 hour>learning and making virtural device on android studio for furture developing and testiing.
+0.5 hour>searhing learning material on android studio developing.
+
+2021/12/14
+2 hour>working on status report
+
+2021/12/15
+0.5 hour>working on status report.
+
+2021/12/17
+0.5 hour> meeting with supervisor 
+9.5 hour> improve the statues report base on supervisoer's comments.
+
+2021/12/18
+0.5hour>creating new timelog file for semester 2 and holiday.
+

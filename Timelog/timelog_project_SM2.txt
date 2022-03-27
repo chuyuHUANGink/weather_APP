@@ -1,0 +1,130 @@
+2021/12/25
+2hour>pratice android studio skills
+
+2021/12/26
+1hour>searching learning materials for android studio
+1hour>recall java skills.
+
+2022/1/1
+3hour>recall java skills.
+
+2022/1/3
+2hour>learning android studio.
+
+2022/1/5
+5hour>start the coding of the project,testing the programming runing in virtual device
+
+2022/1/6
+4hour>fix my old android phone and try testing the programming runing on my vold phone
+1hour>do comparation between virtual device and real phone.
+
+2022/1/8
+3hour>dicussing the developing plan with friends who has experience on it.
+     >decide to divdide the project into servel steps.
+
+2022/1/9
+1hour>searching for example/learning materials for the first step.
+2hour>pratice android studio skills.
+
+2022/1/10
+1hour>pratice android stuido skills.
+0.5hour>recall java skills.
+1hour>searching for example/learning materials for the first step.
+
+2022/1/11
+10hour>start the step 1 coding, which is the most bascic weather forecast part.
+
+2022/1/12
+5hour>keep working on the recyle view
+5hour>testing the application, finding a problem that sometimes the api call doesnt work and just return the same result after i changed the request.then try to fix it.
+2hour>build the repository on github.
+
+2022/1/13
+2hour>try to fix the api problem.
+2hour>delete the current repository, create a new one while try update the commit through android studio directly.
+0.5hour>recording a short video on current app for avoid the api problem happens during the 
+meeting.
+1hour>finding a way to project my phone to lattop then can show app in meeting.
+
+2022/1/14
+0.5hour>meeting with superviosr
+2hour>working on the api problem, try use another api call function
+
+2022/1/17
+2hour>working on the api problem.
+
+2022/1/18
+5hour>working on the api problem, solve it.
+0.5 hour>improve the app out look.
+
+2022/1/19
+3hour> adding new filter function.
+1hour>improving the app out look.
+5hour>moving to next step, expanding the forecast to 3 days.
+1hour>perpare the supervisor meeting.
+
+2022/1/20
+1hour>searching the relative artile on outside drying weather, 
+2hour>improve the algorithm.
+
+2022/1/21
+0.5hour>commit the current verison.checking the app work with updates.
+0.5hour>meeting with supervisor.
+3hour>checking the current progress, make decision among further functions, expecaiily alarm and user setting.
+1hour>move to next step, working on the alarm.
+
+2022/1/22
+15hour>working on the alarm(focus on transfer date data from view part to main activity)
+
+2022/1/26
+10min>meeting with supervisor(im late)
+
+2022/1/28
+1hour>making a progress report via email.
+
+2022/1/31
+2hour>checking the current progress, decide stop the further function developing as most fucntrion target achieved.
+
+2022/2/1
+1hour>perparing the evaluation.
+
+2022/2/2
+2hour>communicatiing with firends, ask them to join the evalution.
+0.5hour>meeting with the supervisor
+
+2022/2/8
+3hour>working on the evaluation perparation, decide to do it in questionnire way.
+
+2022/2/9
+0.5hour>meeting with supervioser.
+
+2022/2/10
+1hour>searhing materials for the evaluation from network, about how to do a good evaluation.
+0.5hour>checking and ethic list.
+
+2022/2/12
+0.5hour>ethic list, email to supervioser.
+
+2022/2/17
+2hour>working on the questionnaire.
+
+2022/2/18
+0.5hour>working on the questionnaire(finished).
+3hour>send the questionnaries and current version applications, start the evaluation.
+
+2022/2/23
+2hour>improving the code and add some comments.
+0.5hour>send a email to supervisor about missing today's meeting and my current questions and progress.
+
+2022/2/24
+2hour>redesign a new querstionnaire and cease the current evalution, let them use new questionnqires.
+
+2022/2/27
+3hour>working on the disseration
+
+2022/3/9
+1hour>add necessary improvement on github, includes a read me file, move apf files.
+
+
+
+
