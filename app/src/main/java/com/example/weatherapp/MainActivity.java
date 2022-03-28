@@ -58,7 +58,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity  {
 
     private RelativeLayout homeRL;
-
     private TextView cityNameTV,rvTV,alarmTV;
     private TextInputEditText cityEdt;
     private RecyclerView weatherRV;
@@ -73,26 +72,12 @@ public class MainActivity extends AppCompatActivity  {
     private ImageButton IBnext,IBback,IBre,IBAlarm;
     JSONObject responseGet;
     SimpleDateFormat input=new SimpleDateFormat("yyyy-MM-dd hh:mm");
-
     private JSONObject forecastobj;
     private JSONObject forecastDay;
-
-    private Calendar calendar,calendar_temp;
+    private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     public String clock_time="";
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +86,8 @@ public class MainActivity extends AppCompatActivity  {
         createNotificationChannel();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         setContentView(R.layout.activity_main);
-
+        //Binding the variables with tools via tool's id.
         homeRL=findViewById(R.id.idRLHome);
         cityNameTV=findViewById(R.id.idTVCityName);
         weatherRV=findViewById(R.id.idRvWeather);
@@ -169,7 +153,6 @@ public class MainActivity extends AppCompatActivity  {
             IBre.setVisibility(View.VISIBLE);
             weatherRV.setAdapter(weatherRVAdapter);
             day_counter++;}
-
         }else{
          Toast.makeText(MainActivity.this,"already readch the maximum possible forecast!",Toast.LENGTH_SHORT).show();
             }
@@ -184,13 +167,9 @@ public class MainActivity extends AppCompatActivity  {
                 FillweatherInfo(day_counter);
                 if (day_counter==0){
                 IBre.setVisibility(View.GONE);}
-
                 weatherRV.setAdapter(weatherRVAdapter);}else{
                     Toast.makeText(MainActivity.this,"It's already today's forecast!!",Toast.LENGTH_SHORT).show();
-
-
                 }
-
             }
         });
 
@@ -212,10 +191,6 @@ public class MainActivity extends AppCompatActivity  {
             cancelAlarm();
         }
     });
-
-
-
-
 
     //find the weather information for certain city, if no entry, then search for default current city.
     searchIV.setOnClickListener(new View.OnClickListener() {
@@ -278,9 +253,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-
+    //Take the longtitude and latidtude as input then return the city name with this geo inputs.
     private String getCityName(double longitude, double latitude){
-
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         try{
             List<Address>addresses=gcd.getFromLocation(latitude,longitude,10);
@@ -290,7 +264,6 @@ public class MainActivity extends AppCompatActivity  {
                     String city=adr.getLocality();
                     if(city!=null&&!city.equals("")){
                         cityName=city;
-
                     }else{
                         Log.d("TAG","City not found");
                         //Toast.makeText(this, "city not found..", Toast.LENGTH_SHORT).show();
@@ -315,11 +288,7 @@ public class MainActivity extends AppCompatActivity  {
         cityNameTV.setText(cityNameGet);
         rvTV.setText("Forecast for:"+forecast_date+"/in:"+cityNameGet);
 
-
-
-
-
-
+        //process the weather information gathered from the json object.
         for (int i = 0; i < hourArray.length(); i++) {
             JSONObject hourobj = hourArray.getJSONObject(i);
             String time = hourobj.getString("time");
@@ -331,8 +300,7 @@ public class MainActivity extends AppCompatActivity  {
             int wind_value=hourobj.getInt("wind_kph");
             int hum_value=hourobj.getInt("humidity");
 
-
-
+        //A simple algorithm that rank hours into 3 level base on its weather condition.
             if (day==1){
                 int con=hourobj.getJSONObject("condition").getInt("code");
                 if ((con==1000||con==1003||con==1006)&&(wind_value<12)&&(hum_value<70)&&(wind_value>8)){
@@ -348,16 +316,12 @@ public class MainActivity extends AppCompatActivity  {
         }
         weatherRVAdapter.notifyDataSetChanged();
         requestQueue.stop();
-
-
-
-
     } catch (JSONException e) {
         e.printStackTrace();
         requestQueue.stop();
     }
     }
-
+    //send api calls to the website and get JSON as response.
     private void getWeatherInfo(String cityName){
         IBre.setVisibility(View.GONE);
         day_counter=0;
@@ -370,21 +334,14 @@ public class MainActivity extends AppCompatActivity  {
                 homeRL.setVisibility(View.VISIBLE);
                 weatherRVModalArrayList.clear();
                 cityEdt.setText("");
-
-
-
-
                 try {
                         forecastobj = responseGet.getJSONObject("forecast");
                         FillweatherInfo(0);
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     requestQueue.stop();
                 }
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -396,11 +353,6 @@ public class MainActivity extends AppCompatActivity  {
         });
         requestQueue.add(jsonObjectRequest);
         requestQueue.start();
-
-
-
-
-
     }
 
     private void setAlarm() {
@@ -432,12 +384,6 @@ public class MainActivity extends AppCompatActivity  {
                 e.printStackTrace();
             }
 
-
-
-
-
-
-
             calendar_temp.set(calendar_temp.YEAR, year);
             calendar_temp.set(calendar_temp.MONTH, month);
             calendar_temp.set(calendar_temp.DAY_OF_MONTH, day);
@@ -465,12 +411,6 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-
-
-
-
-
-
     //used to receive information from card and alarm making.
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -481,8 +421,6 @@ public class MainActivity extends AppCompatActivity  {
                     setAlarm();
                 default:
                     break;
-
-
             }
         }
     };
