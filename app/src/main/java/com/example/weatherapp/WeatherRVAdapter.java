@@ -61,7 +61,7 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         holder.humTV.setText("humidity:"+modal.getHum());
 
 
-        //send tiem information to main activity with choosen card for alarm use.
+        //sending time information to main activity with choosen card for alarm use.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,10 +75,6 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
             }
         });
 
-
-
-
-
         //change the color of the card show the weather condition rank base on algorithm from main activity.
         if (modal.getCon()==0){
         holder.itemView.setBackgroundColor(Color.YELLOW);}
@@ -88,11 +84,6 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         if (modal.getCon()==2){
             holder.itemView.setBackgroundColor(Color.GREEN);
         }
-
-
-
-
-
 
 
         Picasso.get().load("http:".concat(modal.getIcon())).into(holder.conditioniv);
@@ -111,8 +102,6 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
     public int getItemCount() {
         return weatherRVModalArrayList.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView windTV,temperatureTV,timeTV,humTV;

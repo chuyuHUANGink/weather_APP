@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity  {
         }
         Location location=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         cityName=getCityName(location.getLongitude(),location.getLatitude());
+        //automatically get the current city name.
         getWeatherInfo(cityName);
 
 
@@ -240,7 +241,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-
+    //checking already get the premission required for the application.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -253,7 +254,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-    //Take the longtitude and latidtude as input then return the city name with this geo inputs.
+
+    //Taking the longtitude and latidtude as input then return the city name with this geo inputs.
     private String getCityName(double longitude, double latitude){
         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
         try{
@@ -374,7 +376,7 @@ public class MainActivity extends AppCompatActivity  {
             int hour=Integer.parseInt(s3[0]);
 
 
-            // a simple condition checking to avoid a alrm on passed time made.
+            // a simple condition checking to avoid a alarm set on a passed time point.
             try{ Date t=input.parse(clock_time);
                 if (t.compareTo(calendar.getTime())>0){
                 } else {
@@ -383,7 +385,7 @@ public class MainActivity extends AppCompatActivity  {
             }catch(ParseException e){
                 e.printStackTrace();
             }
-
+            //making alarm via the android alarm manager.
             calendar_temp.set(calendar_temp.YEAR, year);
             calendar_temp.set(calendar_temp.MONTH, month);
             calendar_temp.set(calendar_temp.DAY_OF_MONTH, day);
